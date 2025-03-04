@@ -1,0 +1,34 @@
+
+
+-- CREATE TABLE cv_users (
+--   id SERIAL PRIMARY KEY,
+--   clerk_user_id VARCHAR(255) UNIQUE NOT NULL,
+--   email VARCHAR(255) UNIQUE NOT NULL
+-- );
+
+CREATE TABLE cv_users (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL
+);
+
+CREATE TABLE cv_resumes (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES cv_users(id) ON DELETE CASCADE,
+  filename VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
+  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE cv_job_descriptions (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES cv_users(id) ON DELETE CASCADE,
+  content TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE cv_feedbacks (
+  id SERIAL PRIMARY KEY,
+  resume_id INTEGER REFERENCES cv_resumes(id) ON DELETE CASCADE,
+  feedback TEXT NOT NULL,
+)
