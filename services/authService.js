@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import pool from "../db.js";
 
+
 const SECRET = process.env.JWT_SECRET;
 
 export const registerUser = async (email, password) => {
